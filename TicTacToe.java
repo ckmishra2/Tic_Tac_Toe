@@ -12,6 +12,8 @@ public class TicTacToe {
 		board(); // calling the method board in main method
 		chooseLetter();
 		showBoard();
+		play();
+		showBoard();
 	}
 
 	public static void board() {
@@ -47,5 +49,19 @@ public class TicTacToe {
 		System.out.println(" " + board[7] + " |" + " " + board[8] + " |" + " " + board[9]);
 
 	}
+	public static void play() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the place from 1 to 9 for your next move ");
+		int place = sc.nextInt();
+		if(place < 10 && place > 0 ) {
+	        if(board[place] == ' ') {
+	        	board[place] = playerLetter;
+	        }
+	        else
+	        	System.out.println(" this place is already occupied ! please select another ");
+		}
+		else
+			System.out.println("wrong place entered ! please select nos between 1 to 9 only ");
+		}
+	}
 
-}
