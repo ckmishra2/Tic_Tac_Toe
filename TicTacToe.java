@@ -41,6 +41,7 @@ public class TicTacToe {
 		System.out.println("player letter is " + playerLetter);
 		System.out.println("computer letter is " + computerLetter);
 	}
+
 	public static void showBoard() { // showing board status
 		System.out.println(" " + board[1] + " |" + " " + board[2] + " |" + " " + board[3]);
 		System.out.println("-----------");
@@ -49,19 +50,37 @@ public class TicTacToe {
 		System.out.println(" " + board[7] + " |" + " " + board[8] + " |" + " " + board[9]);
 
 	}
-	public static void play() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter the place from 1 to 9 for your next move ");
-		int place = sc.nextInt();
-		if(place < 10 && place > 0 ) {
-	        if(board[place] == ' ') {
-	        	board[place] = playerLetter;
-	        }
-	        else
-	        	System.out.println(" this place is already occupied ! please select another ");
+
+	public static int isEmpty() {
+		int count = 0;
+		for (int i = 1; i <= 9; i++) {
+			if (board[i] == ' ') {
+				count++;
+			}
 		}
-		else
-			System.out.println("wrong place entered ! please select nos between 1 to 9 only ");
-		}
+		return count;
 	}
 
+	public static void play() { // playing the next move
+		boolean check = true;
+		while (check) {
+			int count = isEmpty();
+			if (count > 0) {
+				Scanner sc = new Scanner(System.in);
+				System.out.println("Enter the place from 1 to 9 for your next move ");
+				int place = sc.nextInt();
+				if (place < 10 && place > 0) {
+					if (board[place] == ' ') {
+						board[place] = playerLetter;
+					} else
+						System.out.println(" this place is already occupied ! please select another ");
+				} else
+					System.out.println("wrong place entered ! please select number between 1 to 9 only ");
+			} else {
+				System.out.println("all 9 places are occupied !");
+				check = false;
+			}
+			showBoard();
+		}
+	}
+}
