@@ -1,11 +1,15 @@
 package wkshpr;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class TicTacToe {
 	static char[] board = new char[10];
 	static char playerLetter;
 	static char computerLetter;
+	static int count;
+	static Scanner sc = new Scanner(System.in);
+	static Random rm = new Random();
 
 	public static void main(String[] args) {
 		System.out.println("welcome to Tic Tac Toe GAME");
@@ -14,6 +18,14 @@ public class TicTacToe {
 		showBoard();
 		play();
 		showBoard();
+		int toss = rm.nextInt(2) + 1;
+		if (toss == 1) {
+			System.out.println("player won the toss ! player will play first ");
+			playerTurn();
+		} else {
+			System.out.println("Computer won the toss ! computer will play first ");
+			computerTurn();
+		}
 	}
 
 	public static void board() {
@@ -60,27 +72,47 @@ public class TicTacToe {
 		}
 		return count;
 	}
-
-	public static void play() { // playing the next move
+	public static void play() { // playing the next move 
+	}
+	public static void playerTurn() { 
+		showBoard();
 		boolean check = true;
 		while (check) {
-			int count = isEmpty();
+			count = isEmpty();
 			if (count > 0) {
-				Scanner sc = new Scanner(System.in);
 				System.out.println("Enter the place from 1 to 9 for your next move ");
 				int place = sc.nextInt();
 				if (place < 10 && place > 0) {
 					if (board[place] == ' ') {
 						board[place] = playerLetter;
-					} else
-						System.out.println(" this place is already occupied ! please select another ");
-				} else
-					System.out.println("wrong place entered ! please select number between 1 to 9 only ");
+						computerTurn();
+						check = false;
+					}
+
+				}
+			}
+		}
+	}
+
+	public static void computerTurn() {
+		boolean check = true;
+		while (check) {
+			count = isEmpty();
+			if (count > 0) {
+				int place = rm.nextInt(9) + 1;
+				if (board[place] == ' ') {
+					board[place] = computerLetter;
+					playerTurn();
+					check = false;
+				} else {
+					computerTurn();
+				}
+
 			} else {
 				System.out.println("all 9 places are occupied !");
 				check = false;
 			}
-			showBoard();
 		}
 	}
+
 }
